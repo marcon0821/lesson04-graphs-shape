@@ -12,7 +12,7 @@ st.set_page_config(
 @st.cache_data
 def load_data():
     """GitHub에서 영화 데이터를 불러오고 전처리합니다."""
-    url = "https://raw.githubusercontent.com/happykth/data/main/kobis_movies.csv"
+    url = "https://raw.githubusercontent.com/greatsong/modudata/main/data/kobis_movies.csv"
     try:
         df = pd.read_csv(url)
         # 장르 처리: 세로막대(|)로 구분된 경우 첫 번째 장르만 추출
@@ -53,6 +53,31 @@ if df is not None:
     
     # 시사점 영역
     st.info("💡 **이 그래프로 알 수 있는 것:** (여기에 장르 분포에 대한 인사이트를 작성하세요. 예: 특정 장르의 편중 현상 등)")
+    
+    st.divider()
+
+    st.subheader("2. 장르 및 영화별 총 관객 수 분포 (트리맵)")
+    
+    # Plotly 트리맵 그래프 생성
+    # 계층 구조: 장르 -> 영화명, 크기: 총 관객 수(total_audi)
+    fig2 = px.treemap(
+        df,
+        path=['genre_main', 'movieNm'],
+        values='total_audi',
+        title='장르 및 영화별 총 관객 수',
+        color='total_audi',
+        color_continuous_scale='Reds'
+    )
+    
+    # 마우스 호버 시 표시될 내용 설정 (영화명/장르명과 총 관객 수)
+    fig2.update_traces(
+        hovertemplate='<b>%{label}</b><br>총 관객 수: %{value:,.0f}명<extra></extra>'
+    )
+    
+    st.plotly_chart(fig2, use_container_width=True)
+    
+    # 시사점 영역
+    st.info("💡 **이 그래프로 알 수 있는 것:** (여기에 트리맵 분석 인사이트를 작성하세요. 예: 특정 장르 내 대작 영화의 관객 집중도나 장르별 총 흥행 규모 비교 등)")
     
     st.divider()
 
