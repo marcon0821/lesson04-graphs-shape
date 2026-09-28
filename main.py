@@ -16,7 +16,7 @@ st.markdown("KOBIS 박스오피스 상위권 영화 데이터를 바탕으로 �
 # 데이터 불러오기 및 전처리 캐싱
 @st.cache_data
 def load_data():
-    url = "https://raw.githubusercontent.com/greatsong/modudata/main/data/kobis_movies.csv"
+    url = "https://raw.githubusercontent.com/happykth/data/main/kobis_movies.csv"
     df = pd.read_csv(url)
     
     # 장르가 세로막대(|)로 구분된 경우 첫 번째 장르만 추출
