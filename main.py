@@ -12,7 +12,7 @@ st.set_page_config(
 @st.cache_data
 def load_data():
     """GitHub에서 영화 데이터를 불러오고 전처리합니다."""
-    url = "https://raw.githubusercontent.com/greatsong/modudata/main/data/kobis_movies.csv"
+    url = "https://raw.githubusercontent.com/happykth/data/main/kobis_movies.csv"
     try:
         df = pd.read_csv(url)
         # 장르 처리: 세로막대(|)로 구분된 경우 첫 번째 장르만 추출
